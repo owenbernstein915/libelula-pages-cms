@@ -1,7 +1,7 @@
 {
   "announcement": {
     "enabled": false,
-    "text": "Now serving dinner Friday and Saturday"
+    "text": "Dinner is served Friday and Saturday"
   },
   "brand": {
     "name": "LIBÉLULA",
@@ -44,9 +44,7 @@
       },
       {
         "name": "Brian",
-        "bio": "A CIA Culinary Arts graduate, Brian built his career in leading New York and New Jersey restaurants, including roles with Fleming's and Harvest Restaurant Group.",
-        "linkText": "",
-        "linkUrl": ""
+        "bio": "A CIA Culinary Arts graduate, Brian built his career in leading New York and New Jersey restaurants, including roles with Fleming's and Harvest Restaurant Group."
       }
     ]
   },
