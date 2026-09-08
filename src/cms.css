@@ -1,0 +1,10 @@
+.announcement-banner {
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
