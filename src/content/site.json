@@ -96,8 +96,8 @@
   "reservation": {
     "eyebrow": "Reservations",
     "heading": "Reserve at Libélula.",
-    "description": "Choose a date and we’ll show only times that fit that day’s hours. Toast confirms the latest table availability.",
-    "liveLinkText": "Open Toast live availability"
+    "description": "Choose a date and we’ll show only times that fit that day’s hours. SpotOn confirms the latest table availability.",
+    "liveLinkText": "Open SpotOn availability"
   },
   "visit": {
     "eyebrow": "Visit Libélula",
