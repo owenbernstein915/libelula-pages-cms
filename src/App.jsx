@@ -296,6 +296,9 @@ function HomePage() {
           </a>
         </div>
         <form className="reservation-card reservation-card-standalone" action={site.links.reservations} method="get" target="_blank" data-reveal="text">
+          {Array.from(new URL(site.links.reservations).searchParams, ([name, value], index) => (
+            <input type="hidden" name={name} value={value} key={`${name}-${index}`} />
+          ))}
           <label>
             Party size
             <select name="partySize" value={partySize} onChange={(event) => setPartySize(event.target.value)}>
@@ -318,7 +321,7 @@ function HomePage() {
               ? `${dayName} hours: ${times[0].label} through ${times[times.length - 1].label}.`
               : dayName === "Monday"
                 ? "Libélula is closed on Mondays. Choose another date."
-                : "No remaining reservation times for this date. Choose another day or check Toast directly."}
+                : "No remaining reservation times for this date. Choose another day or check live availability directly."}
           </p>
           <button className="button button-light" type="submit" disabled={!times.length}>
             Check availability <span aria-hidden="true">↗</span>
