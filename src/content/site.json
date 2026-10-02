@@ -96,8 +96,8 @@
   "reservation": {
     "eyebrow": "Reservations",
     "heading": "Reserve at Libélula.",
-    "description": "Choose a date and we’ll show only times that fit that day’s hours. SpotOn confirms the latest table availability.",
-    "liveLinkText": "Open SpotOn availability"
+    "description": "Choose a date and we’ll show only times that fit that day’s hours. Confirm your party size, date, and time on Google’s reservation page.",
+    "liveLinkText": "Reserve with Google"
   },
   "visit": {
     "eyebrow": "Visit Libélula",
@@ -133,7 +133,7 @@
     "email": "info@libelulamontclair.com"
   },
   "links": {
-    "reservations": "https://tables.toasttab.com/restaurants/132a58a4-cbdc-4769-be08-82d08cc67522/findTime",
+    "reservations": "https://www.google.com/maps/reserve/v/dine/c/0nRrevvmqSo?source=pa&opi=89978449&hl=en-US&gei=FA-_aq-hCaeeptQPk-2TWQ&sourceurl=https://www.google.com/search?q%3Dlibelula%2Bmontclair%2Btable%2Breservations%26rlz%3D1C5OZZY_enUS1154US1154%26oq%3Dlibelula%2Bmontclair%2Btable%2Breservations%26gs_lcrp%3DEgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCTMwNTk0ajBqN6gCALACAA%26sourceid%3Dchrome%26source%3Dchrome.ob%26ie%3DUTF-8",
     "orderOnline": "https://www.toasttab.com/local/order/libelulamontclair",
     "instagram": "https://www.instagram.com/libelulamontclair/",
     "facebook": "https://www.facebook.com/LibelulaBakeryAndKitchen"
