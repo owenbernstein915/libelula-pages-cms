@@ -34,8 +34,8 @@ function Header({ menuPage = false }) {
             </>
           )}
         </nav>
-        <a className="button button-dark header-cta" href={menuPage ? "/#reserve" : "#reserve"}>
-          Reserve
+        <a className="button button-dark header-cta" href={site.links.orderOnline} {...external}>
+          Order Online
         </a>
       </header>
       {site.announcement.enabled && (
@@ -186,8 +186,8 @@ function HomePage() {
             <p className="hero-deck">{site.hero.description}</p>
             <div className="hero-actions">
               <a className="button button-coral" href={site.hero.buttonUrl}>{site.hero.buttonText}</a>
-              <a className="text-link light-link" href={site.links.orderOnline} {...external}>
-                Order online <span aria-hidden="true">↗</span>
+              <a className="text-link light-link" href={site.links.reservations} {...external}>
+                Reserve now <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
