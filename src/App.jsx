@@ -566,6 +566,7 @@ export default function App() {
     if (!visualPreview) return undefined;
     let parentOrigin = null;
     let observer = null;
+    let previewInteractionsActive = false;
 
     function addStyles() {
       if (document.getElementById("owen-portal-preview-style")) return;
@@ -619,6 +620,11 @@ export default function App() {
         }
       } else if (message.type !== "owen-portal:update" || parentOrigin !== event.origin) return;
       if (!message.content || !message.content.website || !Array.isArray(message.content.menus)) return;
+      if (!previewInteractionsActive) {
+        document.addEventListener("click", preservePreviewOnInternalLinks, true);
+        document.addEventListener("submit", preventPreviewSubmission, true);
+        previewInteractionsActive = true;
+      }
       const overrides = message.imageOverrides || {};
       site = withPortalImageOverrides(message.content.website, overrides);
       menus = withPortalImageOverrides(message.content.menus, overrides);
@@ -645,8 +651,6 @@ export default function App() {
 
     function preventPreviewSubmission(event) { event.preventDefault(); event.stopImmediatePropagation(); }
     window.addEventListener("message", onMessage);
-    document.addEventListener("click", preservePreviewOnInternalLinks, true);
-    document.addEventListener("submit", preventPreviewSubmission, true);
     window.parent.postMessage({ type: "owen-portal:ready", siteId: "libelula" }, "*");
     return () => {
       window.removeEventListener("message", onMessage);
