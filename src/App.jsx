@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import site from "./content/site.json";
-import menus from "./content/menu.json";
+import siteData from "./content/site.json";
+import menuData from "./content/menu.json";
+
+let site = siteData;
+let menus = menuData;
 
 const external = { target: "_blank", rel: "noreferrer" };
 
@@ -16,7 +19,7 @@ function Brand({ home = "/" }) {
 function Header({ menuPage = false }) {
   return (
     <>
-      <header className={`site-header${menuPage ? " menu-site-header" : ""}`}>
+      <header className={`site-header${menuPage ? " menu-site-header" : ""}`} data-portal-edit-path='["website","brand"]' data-portal-edit-label="Business name">
         <Brand home={menuPage ? "/" : "#top"} />
         <nav aria-label={menuPage ? "Menu page navigation" : "Main navigation"}>
           {menuPage ? (
@@ -39,7 +42,7 @@ function Header({ menuPage = false }) {
         </a>
       </header>
       {site.announcement.enabled && (
-        <div className="announcement-banner" role="status">
+        <div className="announcement-banner" role="status" data-portal-edit-path='["website","announcement"]' data-portal-edit-label="Announcement">
           {site.announcement.text}
         </div>
       )}
@@ -49,7 +52,7 @@ function Header({ menuPage = false }) {
 
 function Footer({ menuPage = false }) {
   return (
-    <footer>
+    <footer data-portal-edit-path='["website","links"]' data-portal-edit-label="Website links">
       <Brand home={menuPage ? "/" : "#top"} />
       <div className="footer-links">
         <a href={site.links.reservations} {...external}>Reservations</a>
@@ -177,7 +180,7 @@ function HomePage() {
     <main className="landing-page">
       <Header />
 
-      <section className="hero" id="top">
+      <section className="hero" id="top" data-portal-edit-path='["website","hero"]' data-portal-edit-label="Homepage introduction">
         <CmsImage className="hero-picture" imageClassName="hero-image" src={site.hero.image} alt={site.hero.imageAlt} eager />
         <div className="hero-overlay">
           <p className="eyebrow">{site.hero.eyebrow}</p>
@@ -204,7 +207,7 @@ function HomePage() {
         </a>
       </section>
 
-      <section className="bakery-section" id="bakery">
+      <section className="bakery-section" id="bakery" data-portal-edit-path='["website","bakery"]' data-portal-edit-label="Bakery section">
         <div className="bakery-copy" data-reveal="text">
           <p className="eyebrow">{site.bakery.eyebrow}</p>
           <h2>{site.bakery.heading}</h2>
@@ -221,7 +224,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="story-section" id="story">
+      <section className="story-section" id="story" data-portal-edit-path='["website","story"]' data-portal-edit-label="Our story">
         <div className="story-photo-card" data-reveal="image">
           <CmsImage src={site.story.image} alt={site.story.imageAlt} />
           <p>{site.story.imageCaption}</p>
@@ -246,7 +249,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="reviews-section" id="reviews">
+      <section className="reviews-section" id="reviews" data-portal-edit-path='["website","reviews"]' data-portal-edit-label="Reviews">
         <div className="rating-block" data-reveal="text">
           <p className="eyebrow">{site.reviews.eyebrow}</p>
           <div className="rating-line">
@@ -269,7 +272,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="social-section">
+      <section className="social-section" data-portal-edit-path='["website","social"]' data-portal-edit-label="Social photos">
         <div className="social-heading" data-reveal="text">
           <div>
             <p className="eyebrow">{site.social.eyebrow}</p>
@@ -286,7 +289,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="reservation-section" id="reserve">
+      <section className="reservation-section" id="reserve" data-portal-edit-path='["website","reservation"]' data-portal-edit-label="Reservations">
         <div className="reservation-copy" data-reveal="text">
           <p className="eyebrow">{site.reservation.eyebrow}</p>
           <h2>{site.reservation.heading}</h2>
@@ -326,7 +329,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="visit-section" id="visit">
+      <section className="visit-section" id="visit" data-portal-edit-path='["website","visit"]' data-portal-edit-label="Visit and hours">
         <div className="visit-heading" data-reveal="text">
           <p className="eyebrow">{site.visit.eyebrow}</p>
           <h2>{site.visit.addressLine1}<br />{site.visit.addressLine2}</h2>
@@ -351,7 +354,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="contact-section" id="contact">
+      <section className="contact-section" id="contact" data-portal-edit-path='["website","contact"]' data-portal-edit-label="Contact form">
         <div>
           <p className="eyebrow">{site.contact.eyebrow}</p>
           <h2>{site.contact.heading}</h2>
@@ -433,7 +436,7 @@ function MenuPage() {
   return (
     <main className="menu-page">
       <Header menuPage />
-      <section className="menu-page-hero">
+      <section className="menu-page-hero" data-portal-edit-path='["menus"]' data-portal-edit-label="Menus and items">
         <div>
           <p className="eyebrow">{site.brand.name} {site.brand.subtitle}</p>
           <h1>Full menu</h1>
@@ -441,7 +444,7 @@ function MenuPage() {
         </div>
       </section>
 
-      <section className="menu-browser" aria-label="Libélula menus">
+      <section className="menu-browser" aria-label="Libélula menus" data-portal-edit-path='["menus"]' data-portal-edit-label="Menus and items">
         <div className="menu-browser-top">
           <div className="menu-switcher" role="tablist" aria-label="Choose a menu">
             {menus.map((menu, index) => (
@@ -533,7 +536,129 @@ function MenuPage() {
   );
 }
 
+function withPortalImageOverrides(value, overrides) {
+  if (typeof value === "string") return overrides[value] || value;
+  if (Array.isArray(value)) return value.map((item) => withPortalImageOverrides(item, overrides));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, withPortalImageOverrides(item, overrides)]));
+  }
+  return value;
+}
+
+function isAllowedPortalOrigin(origin) {
+  try {
+    const url = new URL(origin);
+    return url.protocol === "https:" && !url.port && (
+      url.hostname === "owenbclientdashboard.netlify.app" ||
+      /^(?:deploy-preview-\d+|[a-z0-9-]+)--owenbclientdashboard\.netlify\.app$/.test(url.hostname)
+    );
+  } catch {
+    return false;
+  }
+}
+
 export default function App() {
   const route = window.location.pathname.replace(/\/+$/, "") || "/";
+  const visualPreview = window.parent !== window && new URLSearchParams(window.location.search).get("portalEditor") === "1";
+  const [, setPreviewRevision] = useState(0);
+
+  useEffect(() => {
+    if (!visualPreview) return undefined;
+    let parentOrigin = null;
+    let observer = null;
+    let previewInteractionsActive = false;
+
+    function addStyles() {
+      if (document.getElementById("owen-portal-preview-style")) return;
+      const style = document.createElement("style");
+      style.id = "owen-portal-preview-style";
+      style.textContent = [
+        ".owen-portal-editable{position:relative!important}",
+        ".portal-edit-pencil{position:absolute!important;z-index:2147483000!important;top:12px!important;right:12px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;min-width:44px!important;min-height:44px!important;padding:0 12px!important;border:1px solid #175fd0!important;border-radius:999px!important;background:#fff!important;color:#10293b!important;box-shadow:0 3px 12px #10293b30!important;font:600 12px/1 system-ui,sans-serif!important;letter-spacing:0!important;text-transform:none!important;cursor:pointer!important}",
+        ".portal-edit-pencil svg{width:17px!important;height:17px!important;display:block!important}",
+        ".portal-edit-pencil:hover,.portal-edit-pencil:focus-visible{background:#e9f2ff!important;outline:3px solid #71aaff!important;outline-offset:2px!important}",
+        ".site-header>.portal-edit-pencil{top:50%!important;right:150px!important;transform:translateY(-50%)!important}",
+        "@media(max-width:700px){.portal-edit-pencil{top:8px!important;right:8px!important;min-width:44px!important;min-height:44px!important}.site-header>.portal-edit-pencil{top:auto!important;right:9px!important;bottom:-48px!important;transform:none!important}}",
+      ].join("\n");
+      document.head.appendChild(style);
+    }
+
+    function addPencils() {
+      document.querySelectorAll("[data-portal-edit-path]").forEach((section) => {
+        if (section.querySelector(":scope > [data-portal-edit-button]")) return;
+        section.classList.add("owen-portal-editable");
+        const label = section.getAttribute("data-portal-edit-label") || "this section";
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "portal-edit-pencil";
+        button.setAttribute("data-portal-edit-button", "");
+        button.setAttribute("aria-label", "Edit " + label);
+        button.title = "Edit " + label;
+        button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span>Edit</span>';
+        button.addEventListener("click", (event) => {
+          event.preventDefault(); event.stopPropagation();
+          if (!parentOrigin) return;
+          try {
+            window.parent.postMessage({ type: "owen-portal:edit", siteId: "libelula", path: JSON.parse(section.getAttribute("data-portal-edit-path")) }, parentOrigin);
+          } catch { /* Ignore malformed edit markers. */ }
+        });
+        section.appendChild(button);
+      });
+    }
+
+    function onMessage(event) {
+      if (event.source !== window.parent || !isAllowedPortalOrigin(event.origin)) return;
+      const message = event.data;
+      if (!message || message.siteId !== "libelula") return;
+      if (message.type === "owen-portal:init") {
+        parentOrigin = event.origin;
+        document.documentElement.classList.add("owen-portal-preview-mode");
+        addStyles();
+        if (!observer && document.body) {
+          observer = new MutationObserver(addPencils);
+          observer.observe(document.body, { childList: true, subtree: true });
+        }
+      } else if (message.type !== "owen-portal:update" || parentOrigin !== event.origin) return;
+      if (!message.content || !message.content.website || !Array.isArray(message.content.menus)) return;
+      if (!previewInteractionsActive) {
+        document.addEventListener("click", preservePreviewOnInternalLinks, true);
+        document.addEventListener("submit", preventPreviewSubmission, true);
+        previewInteractionsActive = true;
+      }
+      const overrides = message.imageOverrides || {};
+      site = withPortalImageOverrides(message.content.website, overrides);
+      menus = withPortalImageOverrides(message.content.menus, overrides);
+      document.title = `${site.brand.name} ${site.brand.subtitle} | Montclair, NJ`;
+      setPreviewRevision((revision) => revision + 1);
+      requestAnimationFrame(() => {
+        addPencils();
+        document.querySelectorAll("[data-reveal]").forEach((element) => element.classList.add("is-visible"));
+      });
+    }
+
+    function preservePreviewOnInternalLinks(event) {
+      if (event.target.closest("[data-portal-edit-button]")) return;
+      const link = event.target.closest("a[href]");
+      if (!link) return;
+      let destination;
+      try { destination = new URL(link.href, window.location.href); } catch { return; }
+      if (destination.origin !== window.location.origin) {
+        event.preventDefault(); event.stopImmediatePropagation(); return;
+      }
+      destination.searchParams.set("portalEditor", "1");
+      link.href = destination.href;
+    }
+
+    function preventPreviewSubmission(event) { event.preventDefault(); event.stopImmediatePropagation(); }
+    window.addEventListener("message", onMessage);
+    window.parent.postMessage({ type: "owen-portal:ready", siteId: "libelula" }, "*");
+    return () => {
+      window.removeEventListener("message", onMessage);
+      document.removeEventListener("click", preservePreviewOnInternalLinks, true);
+      document.removeEventListener("submit", preventPreviewSubmission, true);
+      observer?.disconnect();
+    };
+  }, [visualPreview]);
+
   return route === "/menu" ? <MenuPage /> : <HomePage />;
 }
