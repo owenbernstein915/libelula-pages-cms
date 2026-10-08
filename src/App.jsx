@@ -16,17 +16,27 @@ function Brand({ home = "/" }) {
   );
 }
 
-function Header({ menuPage = false }) {
+function Header({ menuPage = false, giftCardsPage = false }) {
+  const interiorPage = menuPage || giftCardsPage;
   return (
     <>
-      <header className={`site-header${menuPage ? " menu-site-header" : ""}`} data-portal-edit-path='["website","brand"]' data-portal-edit-label="Business name">
-        <Brand home={menuPage ? "/" : "#top"} />
-        <nav aria-label={menuPage ? "Menu page navigation" : "Main navigation"}>
+      <header className={`site-header${interiorPage ? " menu-site-header" : ""}`} data-portal-edit-path='["website","brand"]' data-portal-edit-label="Business name">
+        <Brand home={interiorPage ? "/" : "#top"} />
+        <nav aria-label={menuPage ? "Menu page navigation" : giftCardsPage ? "Gift cards page navigation" : "Main navigation"}>
           {menuPage ? (
             <>
               <a href="/">Home</a>
               <a href="/#story">Our story</a>
               <a href="/#visit">Visit</a>
+              <a href="/gift-cards">Gift cards</a>
+            </>
+          ) : giftCardsPage ? (
+            <>
+              <a href="/">Home</a>
+              <a href="/menu">Menus</a>
+              <a href="/#story">Our story</a>
+              <a href="/#visit">Visit</a>
+              <a href="/gift-cards">Gift cards</a>
             </>
           ) : (
             <>
@@ -34,6 +44,7 @@ function Header({ menuPage = false }) {
               <a href="#bakery">Bakery</a>
               <a href="#story">Our story</a>
               <a href="#visit">Visit</a>
+              <a href="/gift-cards">Gift cards</a>
             </>
           )}
         </nav>
@@ -50,16 +61,18 @@ function Header({ menuPage = false }) {
   );
 }
 
-function Footer({ menuPage = false }) {
+function Footer({ menuPage = false, giftCardsPage = false }) {
+  const interiorPage = menuPage || giftCardsPage;
   return (
     <footer data-portal-edit-path='["website","links"]' data-portal-edit-label="Website links">
-      <Brand home={menuPage ? "/" : "#top"} />
+      <Brand home={interiorPage ? "/" : "#top"} />
       <div className="footer-links">
         <a href={site.links.reservations} {...external}>Reservations</a>
         <a href={site.links.orderOnline} {...external}>Order online</a>
-        <a href={menuPage ? "/#contact" : "#contact"}>Custom cakes + catering</a>
+        <a href="/gift-cards">Gift cards</a>
+        <a href={interiorPage ? "/#contact" : "#contact"}>Custom cakes + catering</a>
         <a href={site.links.instagram} {...external}>Instagram</a>
-        {!menuPage && <a href={site.links.facebook} {...external}>Facebook</a>}
+        {!interiorPage && <a href={site.links.facebook} {...external}>Facebook</a>}
       </div>
       <p>{site.brand.location} · © {new Date().getFullYear()} {site.brand.name} {site.brand.subtitle}</p>
     </footer>
@@ -536,6 +549,29 @@ function MenuPage() {
   );
 }
 
+function GiftCardsPage() {
+  useEffect(() => {
+    document.title = `${site.giftCards.title} | ${site.brand.name} ${site.brand.subtitle}`;
+  }, []);
+
+  return (
+    <main className="menu-page gift-cards-page">
+      <Header giftCardsPage />
+      <section className="menu-page-hero gift-cards-hero" data-portal-edit-path='["website","giftCards"]' data-portal-edit-label="Gift cards page">
+        <div className="gift-cards-content">
+          <p className="eyebrow">{site.giftCards.eyebrow}</p>
+          <h1>{site.giftCards.title}</h1>
+          <p className="gift-cards-description">{site.giftCards.description}</p>
+          <a className="button button-coral gift-cards-cta" href={site.giftCards.buttonUrl} {...external}>
+            {site.giftCards.buttonText} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+      <Footer giftCardsPage />
+    </main>
+  );
+}
+
 function withPortalImageOverrides(value, overrides) {
   if (typeof value === "string") return overrides[value] || value;
   if (Array.isArray(value)) return value.map((item) => withPortalImageOverrides(item, overrides));
@@ -660,5 +696,5 @@ export default function App() {
     };
   }, [visualPreview]);
 
-  return route === "/menu" ? <MenuPage /> : <HomePage />;
+  return route === "/menu" ? <MenuPage /> : route === "/gift-cards" ? <GiftCardsPage /> : <HomePage />;
 }
