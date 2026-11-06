@@ -3,6 +3,8 @@
 
 .gift-cards-page .gift-cards-hero{background:var(--ink)}
 .gift-cards-content{max-width:1020px}
+footer > .site-credit{grid-column:1/-1;border-top:1px solid var(--line);padding-top:14px;font-size:12px;line-height:1.6;text-align:center}
+.site-credit a{display:inline-block;padding-block:5px;font-weight:600;text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:3px}
 .gift-cards-description{max-width:590px;margin:2.2rem 0 0;font-family:Georgia,Times New Roman,serif;font-size:1.15rem;line-height:1.55}
 .gift-cards-cta{margin-top:1.6rem}
 @media (max-width:760px){.gift-cards-content{width:100%}.gift-cards-page .gift-cards-hero h1{font-size:clamp(4rem,18vw,7rem)}}

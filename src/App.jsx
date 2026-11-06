@@ -75,6 +75,7 @@ function Footer({ menuPage = false, giftCardsPage = false }) {
         {!interiorPage && <a href={site.links.facebook} {...external}>Facebook</a>}
       </div>
       <p>{site.brand.location} · © {new Date().getFullYear()} {site.brand.name} {site.brand.subtitle}</p>
+      <p className="site-credit">Designed by <a href="https://owenbwebdesign.com/" target="_blank" rel="noopener">Owen B Web Design</a></p>
     </footer>
   );
 }
