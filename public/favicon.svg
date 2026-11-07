@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>Libélula dragonfly</title>
+  <rect width="128" height="128" rx="26" fill="#F4E7C5"/>
+  <g fill="#3B6B53">
+    <path d="M61 53C45 32 14 22 12 36C10 48 42 54 61 57Z"/>
+    <path d="M67 53C83 32 114 22 116 36C118 48 86 54 67 57Z"/>
+    <path d="M61 60C42 56 16 59 20 71C24 82 47 73 61 64Z"/>
+    <path d="M67 60C86 56 112 59 108 71C104 82 81 73 67 64Z"/>
+  </g>
+  <circle cx="64" cy="42" r="6" fill="#17231D"/>
+  <path d="M64 50C58 58 60 88 64 111C68 88 70 58 64 50Z" fill="#17231D"/>
+</svg>
